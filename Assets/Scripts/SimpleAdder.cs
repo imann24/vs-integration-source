@@ -24,6 +24,7 @@ public class SimpleAdder : MonoBehaviour
 
 	bool gotNumber1Input = false;
 	bool gotNumber2Input = false;
+	bool answerSubmitted = false;
 
 	// Use this for initialization
 	void Start() 
@@ -35,9 +36,10 @@ public class SimpleAdder : MonoBehaviour
 
 	void Update()
 	{
-		if(gotNumber1Input && gotNumber2Input)
+		if(gotNumber1Input && gotNumber2Input && !answerSubmitted)
 		{
 			setResult();
+			answerSubmitted = true;
 		}
 	}
 
