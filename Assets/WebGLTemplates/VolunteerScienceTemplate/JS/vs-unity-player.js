@@ -6,8 +6,12 @@
 
 var MESSAGE_RECEIVER_GAME_OBJECT = "VSReceiver";
 var INIT_FUNC = "Initialize";
+var RECEIVER_TIME_OUT = 10000; // In milliseconds
+var RECEIVER_WAIT_TIME = 100;
 
-unityFetchCallbacks = {};
+var unityFetchCallbacks = {};
+var receiverIsReady = false;
+var recieverAccessTimer = 0;
 
 class UnityCallback
 {
@@ -64,7 +68,23 @@ function setRound(roundId)
 
 function initialize()
 {
-     SendMessage(MESSAGE_RECEIVER_GAME_OBJECT, INIT_FUNC);
+     if(recieverAccessTimer < RECEIVER_TIME_OUT)
+     {
+          if(receiverIsReady)
+          {
+               SendMessage(MESSAGE_RECEIVER_GAME_OBJECT, INIT_FUNC);
+          }
+          else
+          {
+               window.setTimeout(initialize, RECEIVER_WAIT_TIME);
+               recieverAccessTimer += RECEIVER_WAIT_TIME;
+          }
+     }
+}
+
+function receiverReady()
+{
+     receiverIsReady = true;
 }
 
 window.addEventListener("message", receiveEvent, false);
