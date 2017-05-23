@@ -20,6 +20,7 @@ public class VariableFetchingTest : MonoBehaviour
     public Text floatListTest;
     public Text boolListTest;
     public Text stringListTest;
+	public Text consumablesTest;
 
     void Start() 
     {
@@ -32,7 +33,15 @@ public class VariableFetchingTest : MonoBehaviour
         fetch.GetFloatList("floatList", avgFloats);
         fetch.GetBoolList("boolList", countBools);
         fetch.GetValueList("stringList", concatStrings);
+		fetch.GetConsumables("unityTest", "unitySet", 2, pickAndSetConsumables);
     }
+
+	void pickAndSetConsumables(string[] choices)
+	{
+		string selection = choices[Random.Range(0, choices.Length)];
+		VariableFetcher.Get.SetConsumables("unityTest", "unitySet", selection);
+		consumablesTest.text = string.Format("Picked {0} from {1}", selection, ArrayUtil.ToString(choices));
+	}
 
     void incrementInt(int num) 
     {
