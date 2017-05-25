@@ -21,6 +21,7 @@ public class VariableFetchingTest : MonoBehaviour
     public Text boolListTest;
     public Text stringListTest;
 	public Text consumablesTest;
+	public Text matrixTest;
 
     void Start() 
     {
@@ -34,7 +35,13 @@ public class VariableFetchingTest : MonoBehaviour
         fetch.GetBoolList("boolList", countBools);
         fetch.GetValueList("stringList", concatStrings);
 		fetch.GetConsumables("unityTest", "unitySet", 2, pickAndSetConsumables);
+		fetch.GetMatrixValue("testMatrix", 1, 1, setMatrixValue);
     }
+
+	void setMatrixValue(string matrixValue)
+	{
+		matrixTest.text = matrixValue;
+	}
 
 	void pickAndSetConsumables(string[] choices)
 	{
